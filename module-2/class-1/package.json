@@ -1,0 +1,27 @@
+{
+  "name": "class-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/5-routing.js",
+    "dev-0": "nodemon ./src/0-server.js",
+    "dev-1": "nodemon ./src/1-middlewares.js",
+    "dev-2": "nodemon ./src/2-params.js",
+    "dev-3": "nodemon ./src/3-query.js",
+    "dev-4": "nodemon ./src/4-form.js",
+    "dev-5": "nodemon ./src/5-routing.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
