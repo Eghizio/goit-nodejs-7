@@ -1,0 +1,118 @@
+<script>
+  // This token should be stored in HTTP ONLY Cookie
+  let token = null;
+</script>
+
+
+
+<form id="login-form">
+  <label>
+    Email
+    <input type="email" id="login-email">
+  </label>
+  <label>
+    Password
+    <input type="password" id="login-pwd">
+  </label>
+  <button type="submit">Login</button>
+</form>
+
+<script>
+  const loginForm = document.querySelector("form#login-form");
+
+  loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const data = {
+      email: loginForm.querySelector("input#login-email").value,
+      password: loginForm.querySelector("input#login-pwd").value,
+    };
+
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    });
+
+    const loginReply = await response.json();
+
+    console.log({ loginReply });
+
+    token = loginReply.token;
+  });
+</script>
+
+
+
+<form id="register-form">
+  <label>
+    Email
+    <input type="email" id="register-email">
+  </label>
+  <label>
+    Password
+    <input type="password" id="register-pwd">
+  </label>
+  <button type="submit">Register</button>
+</form>
+
+<script>
+  const registerForm = document.querySelector("form#register-form");
+
+  registerForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const data = {
+      email: registerForm.querySelector("input#register-email").value,
+      password: registerForm.querySelector("input#register-pwd").value,
+    };
+
+    const response = await fetch("/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    });
+
+    const registerReply = await response.json();
+
+    console.log({ registerReply });
+  });
+</script>
+
+
+
+<div>
+  <button id="public-btn">Get public data</button>
+  <button id="secret-btn">Get secret data</button>
+</div>
+
+<script>
+  const publicBtn = document.querySelector("button#public-btn");
+
+  publicBtn.addEventListener("click", async () => {
+    const response = await fetch("/api/public");
+    const public = await response.json();
+
+    console.log({ public });
+  });
+
+  const secretBtn = document.querySelector("button#secret-btn");
+
+  secretBtn.addEventListener("click", async () => {
+    console.log({ token });
+    const response = await fetch("/api/secret/custom", {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    const secret = await response.json();
+
+    console.log({ secret });
+  });
+</script>
